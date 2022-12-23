@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,11 +13,11 @@ class DailyProfitLoss extends StatefulWidget {
 }
 
 class _DailyProfitLossState extends State<DailyProfitLoss> {
+  String token = getToken();
   var body;
   Week1() async {
     var headers = {
-      'Authorization':
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImJpcGluMTIzNEB0ZXN0LmNvbSIsImlhdCI6MTY3MTE4MjI1MX0.oqI_vc868nkJ24CeCtLXcyrxnJW3QM15cxFsdOmrFf0',
+      'Authorization': token,
       'Cookie':
           'connect.sid=s%3Akl5SvZTkz-3fQwmXsKewBlW05RKa_LjV.DHFs1ZvHP%2FbrrPgXXmCBrZotBftv9%2FU%2FFvo%2FRYTvVTo'
     };
@@ -127,6 +128,12 @@ class _DailyProfitLossState extends State<DailyProfitLoss> {
             return Center(child: CircularProgressIndicator());
           }
         });
+  }
+
+  static getToken() async {
+    SharedPreferences mainPref = await SharedPreferences.getInstance();
+    var token = mainPref.getString("token");
+    return token;
   }
 }
 
