@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:locked_wallet/common_widget/state_info.dart';
 import 'package:locked_wallet/screens/signup_screen/signup_screen.dart';
 import 'package:locked_wallet/screens/user_dashboard/user_dashboard.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../common_widget/common_textfield.dart';
 import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
@@ -38,7 +38,10 @@ class _LogInScreenState extends State<LogInScreen> {
       var res = await response.stream.bytesToString();
       var body = jsonDecode(res);
       var message = body['msg'];
-      StaticInfo.token = body['token'];
+      // StaticInfo.token = body['token'];
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', '${body['token']}');
+      print(prefs.getString('token'));
 
       isLoad = false;
       setState(() {});
