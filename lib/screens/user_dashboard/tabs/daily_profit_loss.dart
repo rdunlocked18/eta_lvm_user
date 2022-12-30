@@ -13,9 +13,10 @@ class DailyProfitLoss extends StatefulWidget {
 }
 
 class _DailyProfitLossState extends State<DailyProfitLoss> {
-  String token = getToken();
   var body;
   Week1() async {
+    SharedPreferences mainPref = await SharedPreferences.getInstance();
+    String token = mainPref.getString("token") ?? "";
     var headers = {
       'Authorization': token,
       'Cookie':
@@ -130,11 +131,11 @@ class _DailyProfitLossState extends State<DailyProfitLoss> {
         });
   }
 
-  static getToken() async {
-    SharedPreferences mainPref = await SharedPreferences.getInstance();
-    var token = mainPref.getString("token");
-    return token;
-  }
+  // static getToken() async {
+  //   SharedPreferences mainPref = await SharedPreferences.getInstance();
+  //   var token = mainPref.getString("token");
+  //   return token;
+  // }
 }
 
 class ProfitLoss {

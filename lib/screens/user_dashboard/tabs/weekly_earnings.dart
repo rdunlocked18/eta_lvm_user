@@ -13,7 +13,6 @@ class WeeklyEarning extends StatefulWidget {
 }
 
 class _WeeklyEarningState extends State<WeeklyEarning> {
-  String token = getToken();
   void initState() {
     super.initState();
     firstWeek();
@@ -23,6 +22,8 @@ class _WeeklyEarningState extends State<WeeklyEarning> {
   }
 
   firstWeek() async {
+    SharedPreferences mainPref = await SharedPreferences.getInstance();
+    String token = mainPref.getString("token") ?? "";
     var headers = {
       'Authorization': token,
       'Cookie':
@@ -51,6 +52,8 @@ class _WeeklyEarningState extends State<WeeklyEarning> {
   }
 
   secondWeek() async {
+    SharedPreferences mainPref = await SharedPreferences.getInstance();
+    String token = mainPref.getString("token") ?? "";
     var headers = {
       'Authorization': token,
       'Cookie':
@@ -78,6 +81,8 @@ class _WeeklyEarningState extends State<WeeklyEarning> {
   }
 
   thirdWeek() async {
+    SharedPreferences mainPref = await SharedPreferences.getInstance();
+    String token = mainPref.getString("token") ?? "";
     var headers = {
       'Authorization': token,
       'Cookie':
@@ -105,6 +110,8 @@ class _WeeklyEarningState extends State<WeeklyEarning> {
   }
 
   forthWeek() async {
+    SharedPreferences mainPref = await SharedPreferences.getInstance();
+    String token = mainPref.getString("token") ?? "";
     var headers = {
       'Authorization': token,
       'Cookie':
@@ -233,11 +240,11 @@ class _WeeklyEarningState extends State<WeeklyEarning> {
         });
   }
 
-  static getToken() async {
-    SharedPreferences mainPref = await SharedPreferences.getInstance();
-    var token = mainPref.getString("token");
-    return token;
-  }
+  // static getToken() async {
+  //   SharedPreferences mainPref = await SharedPreferences.getInstance();
+  //   var token = mainPref.getString("token");
+  //   return token;
+  // }
 }
 
 class EarningModel {
