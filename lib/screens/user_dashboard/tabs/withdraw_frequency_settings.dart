@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class withdraw extends StatefulWidget {
-  const withdraw({Key? key}) : super(key: key);
+class WithdrawFrequencyTab extends StatefulWidget {
+  const WithdrawFrequencyTab({Key? key}) : super(key: key);
 
   @override
-  State<withdraw> createState() => _withdrawState();
+  State<WithdrawFrequencyTab> createState() => _WithdrawFrequencyTabState();
 }
 
-class _withdrawState extends State<withdraw> {
+class _WithdrawFrequencyTabState extends State<WithdrawFrequencyTab> {
   List<String> _compoundItems = [
     'Monthly',
     'Bi-Monthly',
@@ -54,7 +54,12 @@ class _withdrawState extends State<withdraw> {
               ),
               items: _payOutItems
                   .map((e) => DropdownMenuItem<String>(
-                        child: Text(e),
+                        child: Text(
+                          e,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
                         value: e,
                       ))
                   .toList(),
@@ -81,47 +86,60 @@ class _withdrawState extends State<withdraw> {
                 ),
                 child: Row(
                   children: [
-                    SizedBox(width: 50,),
-                    Text("75%",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600,color: Colors.white),),
+                    SizedBox(
+                      width: 50,
+                    ),
+                    Text(
+                      "75%",
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
+                    ),
                     Spacer(),
                     Column(
                       children: [
                         InkWell(
-                          onTap: (){},
+                          onTap: () {},
                           child: Container(
                             height: 30,
                             width: 50,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(10),
-                              ),
-                              border: Border.all(color: Colors.white)
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(10),
+                                ),
+                                border: Border.all(color: Colors.white)),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: Colors.white,
                             ),
-                            child: Icon(Icons.arrow_drop_up,color: Colors.white,),
                           ),
                         ),
                         InkWell(
-                          onTap: (){},
+                          onTap: () {},
                           child: Container(
                             height: 30,
                             width: 50,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                bottomRight: Radius.circular(10),
-                              ),
-                              border: Border.all(color: Colors.white)
+                                borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(10),
+                                ),
+                                border: Border.all(color: Colors.white)),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.white,
                             ),
-                            child: Icon(Icons.arrow_drop_down,color: Colors.white,),
                           ),
                         ),
                       ],
                     )
                   ],
                 ),
-
               ),
             ),
-            SizedBox(width: 50,),
+            SizedBox(
+              width: 50,
+            ),
             Expanded(
               child: Container(
                 height: 60,
@@ -132,13 +150,21 @@ class _withdrawState extends State<withdraw> {
                 ),
                 child: Row(
                   children: [
-                    SizedBox(width: 50,),
-                    Text("75%",style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600,color: Colors.white),),
+                    SizedBox(
+                      width: 50,
+                    ),
+                    Text(
+                      "75%",
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
+                    ),
                     Spacer(),
                     Column(
                       children: [
                         InkWell(
-                          onTap: (){},
+                          onTap: () {},
                           child: Container(
                             height: 30,
                             width: 50,
@@ -146,13 +172,15 @@ class _withdrawState extends State<withdraw> {
                                 borderRadius: BorderRadius.only(
                                   topRight: Radius.circular(10),
                                 ),
-                                border: Border.all(color: Colors.white)
+                                border: Border.all(color: Colors.white)),
+                            child: Icon(
+                              Icons.arrow_drop_up,
+                              color: Colors.white,
                             ),
-                            child: Icon(Icons.arrow_drop_up,color: Colors.white,),
                           ),
                         ),
                         InkWell(
-                          onTap: (){},
+                          onTap: () {},
                           child: Container(
                             height: 30,
                             width: 50,
@@ -160,16 +188,17 @@ class _withdrawState extends State<withdraw> {
                                 borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(10),
                                 ),
-                                border: Border.all(color: Colors.white)
+                                border: Border.all(color: Colors.white)),
+                            child: Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.white,
                             ),
-                            child: Icon(Icons.arrow_drop_down,color: Colors.white,),
                           ),
                         ),
                       ],
                     )
                   ],
                 ),
-
               ),
             ),
           ],
@@ -205,7 +234,12 @@ class _withdrawState extends State<withdraw> {
               ),
               items: _compoundItems
                   .map((e) => DropdownMenuItem<String>(
-                        child: Text(e),
+                        child: Text(
+                          e,
+                          style: TextStyle(
+                            color: Colors.black,
+                          ),
+                        ),
                         value: e,
                       ))
                   .toList(),
@@ -215,6 +249,18 @@ class _withdrawState extends State<withdraw> {
                 });
               },
             ),
+          ),
+        ),
+        SizedBox(
+          height: 50,
+        ),
+        Container(
+          width: double.infinity,
+          height: 50,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Color(0xFF0C331F)),
+            onPressed: () {},
+            child: Text("Save"),
           ),
         ),
       ],

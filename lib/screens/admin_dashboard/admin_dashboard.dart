@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:locked_wallet/screens/admin_dashboard/tabs/dashbard_widraw_contract.dart';
+
+import '../user_dashboard/tabs/dashbard_widraw_contract.dart';
 
 class AdminDashBoard extends StatefulWidget {
   const AdminDashBoard({Key? key}) : super(key: key);

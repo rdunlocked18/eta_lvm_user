@@ -60,7 +60,6 @@ class _CommonTextFieldWithTitleState extends State<CommonTextFieldWithTitle> {
                             style: const TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold)),
                         const SizedBox(
-
                           width: 2,
                         ),
                         widget.requiredField
@@ -81,7 +80,6 @@ class _CommonTextFieldWithTitleState extends State<CommonTextFieldWithTitle> {
             : Container(),
         widget.title != ''
             ? const SizedBox(
-
                 height: 10,
               )
             : Container(),
@@ -93,18 +91,18 @@ class _CommonTextFieldWithTitleState extends State<CommonTextFieldWithTitle> {
           obscureText: widget.obscure,
           inputFormatters: widget.isInputFormatter
               ? [
-            FilteringTextInputFormatter.allow(
+                  FilteringTextInputFormatter.allow(
                       RegExp("[a-z A-Z. \u0600-\u06FF]")),
                 ]
               : widget.isIntegerFormatter
                   ? [
-            FilteringTextInputFormatter.allow(RegExp("[0-9]")),
+                      FilteringTextInputFormatter.allow(RegExp("[0-9]")),
                     ]
                   : widget.isPhoneFormatter
-              ? [
-            FilteringTextInputFormatter.allow(RegExp("[+0-9]")),
-          ]
-              : null,
+                      ? [
+                          FilteringTextInputFormatter.allow(RegExp("[+0-9]")),
+                        ]
+                      : null,
           style: const TextStyle(
               color: Colors.black, fontFamily: 'medium', fontSize: 14),
           maxLines: widget.maxLine,
@@ -125,9 +123,8 @@ class _CommonTextFieldWithTitleState extends State<CommonTextFieldWithTitle> {
               disabledBorder: outlineInputBorder(false),
               suffixIcon: widget.suffixIcon,
               enabled: widget.enabled,
-              hintStyle: const TextStyle(
-                  color: Color(0xFF98999A),
-                  fontSize: 13),
+              hintStyle:
+                  const TextStyle(color: Color(0xFF98999A), fontSize: 13),
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 12, horizontal: 12)),
         ),
@@ -153,5 +150,4 @@ class _CommonTextFieldWithTitleState extends State<CommonTextFieldWithTitle> {
         ),
         borderRadius: BorderRadius.circular(5));
   }
-
 }

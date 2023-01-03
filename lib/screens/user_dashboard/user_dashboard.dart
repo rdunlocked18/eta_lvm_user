@@ -1,33 +1,94 @@
 import 'package:flutter/material.dart';
-import 'package:locked_wallet/screens/user_dashboard/tabs/daily_profit_loss.dart';
-import 'package:locked_wallet/screens/user_dashboard/tabs/running_monthl_total_roz.dart';
-import 'package:locked_wallet/screens/user_dashboard/tabs/weekly_earnings.dart';
+import 'package:locked_wallet/screens/user_dashboard/graphic_view_screen.dart';
+import 'package:locked_wallet/screens/user_dashboard/view_profile_details_screen.dart';
 
-class UserDashboard extends StatefulWidget {
-  const UserDashboard({Key? key}) : super(key: key);
+import 'tabs/contact_page.dart';
+import 'tabs/dashbard_widraw_contract.dart';
+import 'tabs/withdraw_frequency_settings.dart';
+import 'tabs/withdraw_address.dart';
+import 'tabs/withdraw_history.dart';
+
+class UserHomeDashboard extends StatefulWidget {
+  const UserHomeDashboard({Key? key}) : super(key: key);
 
   @override
-  State<UserDashboard> createState() => _UserDashboardState();
+  State<UserHomeDashboard> createState() => _UserHomeDashboardState();
 }
 
-class _UserDashboardState extends State<UserDashboard> {
+class _UserHomeDashboardState extends State<UserHomeDashboard> {
   var week1 = [];
   var week2 = [];
   var week3 = [];
   var week4 = [];
+  String currency = 'USD';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Dashboard"),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 10.0),
+          child: Center(
+            child: CircleAvatar(
+              backgroundColor: Color(0xFF0C331F),
+              foregroundColor: Colors.white,
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ViewProfileDetailsScreen(),
+                    ),
+                  );
+                },
+                tooltip: 'View Profile',
+                icon: Icon(
+                  Icons.person,
+                ),
+              ),
+            ),
+          ),
+        ),
+        centerTitle: true,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: Container(
+                padding: EdgeInsets.all(8),
+                color: Color(0xFF0C331F),
+                child: Text(
+                  currency,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => GraphicViewScreen(),
+                  ));
+                },
+                tooltip: 'Show Graphs',
+                icon: Icon(
+                  Icons.auto_graph_rounded,
+                ),
+              ),
+            ),
+          )
+        ],
+        title: Text("Locked Vault Enterprises"),
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
-        centerTitle: true,
         elevation: 0,
       ),
       body: DefaultTabController(
-        length: 3,
+        length: 5,
         initialIndex: 0,
         child: Padding(
           padding: const EdgeInsets.all(20.0),
@@ -42,13 +103,19 @@ class _UserDashboardState extends State<UserDashboard> {
                     color: Color(0xFF0C331F)),
                 tabs: [
                   Tab(
-                    text: "Daily profit/loss",
+                    text: 'Dashboard',
                   ),
                   Tab(
-                    text: "Weekly earnings",
+                    text: 'Contact',
                   ),
                   Tab(
-                    text: "Running Monthly total Roz",
+                    text: 'Withdraw History',
+                  ),
+                  Tab(
+                    text: "Frequency Settings",
+                  ),
+                  Tab(
+                    text: "Withdraw Address",
                   ),
                 ],
               ),
@@ -58,9 +125,11 @@ class _UserDashboardState extends State<UserDashboard> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    DailyProfitLoss(),
-                    WeeklyEarning(),
-                    RunningMonthlyTotalRoz(),
+                    DashBoardWithDrawContract(),
+                    ContactPage(),
+                    WithdrawHistory(),
+                    WithdrawFrequencyTab(),
+                    WithdrawAddress(),
                   ],
                 ),
               ),

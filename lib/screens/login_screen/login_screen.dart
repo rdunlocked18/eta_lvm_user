@@ -55,7 +55,7 @@ class _LogInScreenState extends State<LogInScreen> {
         context,
         MaterialPageRoute(
           builder: (_) {
-            return UserDashboard();
+            return UserHomeDashboard();
           },
         ),
       );

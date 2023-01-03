@@ -1,18 +1,18 @@
-
-
-class UserModel{
-   String? username;
-   String? createDate;
-   String? totalProfit;
-
+class UserModel {
+  String? username;
+  String? createDate;
+  String? totalProfit;
 
   bool? isSelected;
 
-  UserModel({this.username,  this.isSelected = false, this.createDate , this.totalProfit});
-
+  UserModel(
+      {this.username,
+      this.isSelected = false,
+      this.createDate,
+      this.totalProfit});
 
   UserModel.fromJson(Map<String, dynamic> json) {
-    username = json['username'] ;
+    username = json['username'];
     createDate = json['createdAt'];
     createDate = json['totalProfit'];
 

@@ -1,11 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:locked_wallet/services/get_sum_profit_api.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:http/http.dart' as http;
-
-import '../../../constants.dart';
 
 class DailyProfitLoss extends StatefulWidget {
   const DailyProfitLoss({Key? key}) : super(key: key);
@@ -16,35 +11,21 @@ class DailyProfitLoss extends StatefulWidget {
 
 class _DailyProfitLossState extends State<DailyProfitLoss> {
   var body;
-  Week1() async {
-    SharedPreferences mainPref = await SharedPreferences.getInstance();
-    String token = mainPref.getString("token") ?? "";
-    var headers = {
-      'Authorization': token,
-      'Cookie':
-          'connect.sid=s%3Akl5SvZTkz-3fQwmXsKewBlW05RKa_LjV.DHFs1ZvHP%2FbrrPgXXmCBrZotBftv9%2FU%2FFvo%2FRYTvVTo'
-    };
-    var request =
-        http.Request('GET', Uri.parse('$base_url/api/user/week1/profit'));
 
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      //print(await response.stream.bytesToString());
-      var res = await response.stream.bytesToString();
-      body = jsonDecode(res);
-      print(body);
-    } else {
-      print(response.reasonPhrase);
+  Future<void> getData() async {
+    List<int>? totalProf;
+    for (int i = 0; i <= 3; ++i) {
+      int? prof = await get_user_cumulated_profit(DateTime.now(), i);
+      print("prof $prof");
+      totalProf!.add(prof!);
     }
+    print("List  $totalProf");
   }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Week1(),
+        future: getData(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.data != null || body != null) {
             return ListView.builder(
