@@ -195,7 +195,7 @@ class _DashBoardWithDrawContractState extends State<DashBoardWithDrawContract> {
                       child: Column(
                         children: [
                           Text(
-                            "Net Path",
+                            "Net Profit",
                             style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
