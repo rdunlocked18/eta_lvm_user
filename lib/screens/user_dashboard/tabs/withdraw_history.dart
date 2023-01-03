@@ -4,7 +4,6 @@ import 'package:locked_wallet/models/withdraw_single.dart';
 import 'package:locked_wallet/services/withdraw_api_service.dart';
 
 import '../../../common_widget/reusable_tableRow.dart';
-import 'dashbard_widraw_contract.dart';
 
 class WithdrawHistory extends StatefulWidget {
   const WithdrawHistory({Key? key}) : super(key: key);

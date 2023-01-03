@@ -24,8 +24,10 @@ Future<int?> getTotalProfitWithDateUser(String? dates) async {
       return response.data['totalProfit'];
     } else {
       Fluttertoast.showToast(msg: 'Sorry, Error');
+      return 0;
     }
   } catch (e) {
     print(e);
+    return null;
   }
 }

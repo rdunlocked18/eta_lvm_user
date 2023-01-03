@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:locked_wallet/models/user_single_order_model.dart';
 import 'package:locked_wallet/screens/user_dashboard/graphic_view_screen.dart';
 import 'package:locked_wallet/screens/user_dashboard/view_profile_details_screen.dart';
-import 'package:locked_wallet/services/order_api_service.dart';
 
 import '../../models/user_dashboard_details.dart';
 import '../../services/user_api_service.dart';
