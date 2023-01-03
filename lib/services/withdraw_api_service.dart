@@ -3,7 +3,6 @@ import 'package:locked_wallet/models/withdraw_single.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants.dart';
-import '../models/user_dashboard_details.dart';
 
 Future<List<WithdrawSingle>?> getAllUserWithdraws() async {
   try {

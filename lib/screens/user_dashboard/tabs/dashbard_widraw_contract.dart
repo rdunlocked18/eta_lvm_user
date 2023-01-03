@@ -1,16 +1,12 @@
 // ignore_for_file: unnecessary_null_comparison
 
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:locked_wallet/models/user_dashboard_details.dart';
 import 'package:locked_wallet/models/user_single_order_model.dart';
 import 'package:locked_wallet/screens/admin_dashboard/admin_all_users_model/admin_all_users_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../common_widget/reusable_tableRow.dart';
-import 'package:http/http.dart' as http;
 import '../../../constants.dart';
 import '../../../services/order_api_service.dart';
 import '../../../services/user_api_service.dart';
@@ -34,7 +30,7 @@ class _DashBoardWithDrawContractState extends State<DashBoardWithDrawContract> {
   var sync = [];
   List<UserModel> list = [];
   UserModel? select;
-  List<SingleOrder>? userOrders = [];
+  List<SingleOrder> userOrders = [];
 
   @override
   void initState() {
@@ -44,8 +40,15 @@ class _DashBoardWithDrawContractState extends State<DashBoardWithDrawContract> {
   }
 
   void getUserOrders() async {
-    userOrders = await getAllUserOrders();
-    print(userOrders);
+    userOrders = await getAllUserOrders() ?? [];
+    List<double> _as = [];
+    userOrders.forEach((element) {
+      _as.add(double.parse(element.takeProfit ?? '0'));
+    });
+    print(_as);
+    double sum = _as.fold(0, (p, c) => p + c);
+    print(sum);
+    totalNetPath = sum.toString();
     setState(() {});
   }
 
@@ -57,82 +60,8 @@ class _DashBoardWithDrawContractState extends State<DashBoardWithDrawContract> {
       totalBalance = userDashboardDetails.balance;
       totalEquity = userDashboardDetails.equity;
     }
+
     setState(() {});
-  }
-
-  GetAllUsers() async {
-    SharedPreferences mainPref = await SharedPreferences.getInstance();
-    String token = mainPref.getString("token") ?? '';
-    var headers = {'Authorization': token};
-    var request =
-        http.Request('GET', Uri.parse('$base_url/api/admin/getallusers'));
-
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      // print(await response.stream.bytesToString());
-      var res = await response.stream.bytesToString();
-      var body = jsonDecode(res);
-      message = body['data'];
-      for (int i = 0; i < message.length; i++) {
-        UserModel getList = UserModel.fromJson(message[i]);
-        list.add(getList);
-        setState(() {});
-      }
-    } else {
-      print(response.reasonPhrase);
-    }
-  }
-
-  syncDash() async {
-    SharedPreferences mainPref = await SharedPreferences.getInstance();
-    String token = mainPref.getString("token") ?? '';
-    var headers = {'Authorization': token};
-    var request =
-        http.Request('GET', Uri.parse('$base_url/api/user/getdashboard'));
-    request.body = '''''';
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      var res = await response.stream.bytesToString();
-      var body = jsonDecode(res);
-      sync = body['data'];
-      setState(() {});
-      // print('Sync is =$sync');
-    } else {
-      print(response.reasonPhrase);
-    }
-  }
-
-  var data = [];
-  getData() async {
-    SharedPreferences mainPref = await SharedPreferences.getInstance();
-    String token = mainPref.getString("token") ?? '';
-    var headers = {
-      'Authorization': token,
-      'Cookie':
-          'connect.sid=s%3AmBcOuoyugB54QXZqpWGQQbK88si9NELb.HBHNqX4GA599IDUwztdjItc%2B6yrnEzELzfKGnwRfu8Q'
-    };
-    var request =
-        http.Request('GET', Uri.parse('$base_url/api/admin/getallusers'));
-
-    request.headers.addAll(headers);
-
-    http.StreamedResponse response = await request.send();
-
-    if (response.statusCode == 200) {
-      var res = await response.stream.bytesToString();
-      var body = jsonDecode(res);
-      data = body['data'];
-      setState(() {});
-      print(data);
-    } else {
-      print(response.reasonPhrase);
-    }
   }
 
   @override
@@ -299,7 +228,7 @@ class _DashBoardWithDrawContractState extends State<DashBoardWithDrawContract> {
                       child: Column(
                         children: [
                           Text(
-                            "Profit",
+                            "Trades",
                             style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.bold,
@@ -309,7 +238,7 @@ class _DashBoardWithDrawContractState extends State<DashBoardWithDrawContract> {
                             height: 10,
                           ),
                           Text(
-                            '$totalProfit',
+                            '${userOrders.length}',
                             style: TextStyle(
                                 fontSize: 17,
                                 fontWeight: FontWeight.w500,
@@ -328,24 +257,28 @@ class _DashBoardWithDrawContractState extends State<DashBoardWithDrawContract> {
             height: 20,
           ),
           CustomTable(
-            firstList: ['Platform', 'Trades', 'Take Profit', 'Time'],
+            firstList: ['Type', 'Trades', 'Take Profit', 'Time'],
           ),
           ListView.builder(
             shrinkWrap: true,
-            itemCount: userOrders?.length,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: userOrders.length,
             itemBuilder: (contex, index) {
               return GestureDetector(
                 onTap: () {
-                  print(userOrders![index].orderId.toString());
+                  print(userOrders[index].orderId.toString());
                 },
                 child: Column(
                   children: [
                     CustomTable(
                       firstList: [
-                        userOrders![index].platform.toString(),
-                        userOrders![index].symbol.toString(),
-                        userOrders![index].takeProfit.toString(),
-                        getValidZOrderTime(userOrders![index].time.toString())
+                        userOrders[index].type.toString(),
+                        userOrders[index].symbol.toString(),
+                        userOrders[index].takeProfit.toString(),
+                        userOrders[index].updatedAt == null
+                            ? 'Invalid Time'
+                            : getValidZOrderTime(
+                                userOrders[index].updatedAt.toString())
                       ],
                     ),
                   ],

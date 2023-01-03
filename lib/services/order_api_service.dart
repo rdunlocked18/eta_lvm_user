@@ -1,42 +1,36 @@
-import 'dart:convert';
-
-// import 'package:dio/dio.dart';
+import 'package:dio/dio.dart';
 import 'package:locked_wallet/models/user_single_order_model.dart';
-// import 'package:locked_wallet/models/withdraw_single.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-// import '../constants.dart';
+import '../constants.dart';
 
 Future<List<SingleOrder>?> getAllUserOrders() async {
-  // try {
-  //   SharedPreferences mainPref = await SharedPreferences.getInstance();
-  //   String token = mainPref.getString("token") ?? '';
-  //   Response response = await dio.get(
-  //     '$base_url/api/user/orders',
-  //     options: Options(
-  //       headers: {'Authorization': token},
-  //     ),
-  //   );
+  try {
+    SharedPreferences mainPref = await SharedPreferences.getInstance();
+    String token = mainPref.getString("token") ?? '';
+    Response response = await dio.get(
+      '$base_url/api/auth/user',
+      options: Options(
+        headers: {'Authorization': token},
+      ),
+    );
 
-  //   if (response.statusCode == 200) {
-  List data = jsonDecode(sampleOrder);
-  List<SingleOrder> realData = [];
-  data.forEach((element) {
-    SingleOrder withdraw = SingleOrder.fromJson(element);
-    realData.add(withdraw);
-  });
-  print(realData);
-  return realData;
-
-  //     print(realData);
-  //     return realData;
-  //   } else {
-  //     return [];
-  //   }
-  // } catch (e) {
-  //   print(e);
-  //   return null;
-  // }
+    if (response.statusCode == 200) {
+      // List data = jsonDecode(sampleOrder);
+      List data = response.data['orders'];
+      List<SingleOrder> realData = [];
+      data.forEach((element) {
+        SingleOrder withdraw = SingleOrder.fromJson(element);
+        realData.add(withdraw);
+      });
+      return realData;
+    } else {
+      return [];
+    }
+  } catch (e) {
+    print(e);
+    return null;
+  }
 }
 
 String sampleOrder = '''[
