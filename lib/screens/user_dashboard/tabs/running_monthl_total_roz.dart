@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:http/http.dart' as http;
+import '../../../constants.dart';
 
 class RunningMonthlyTotalRoz extends StatefulWidget {
   const RunningMonthlyTotalRoz({Key? key}) : super(key: key);
@@ -25,10 +26,8 @@ class _RunningMonthlyTotalRozState extends State<RunningMonthlyTotalRoz> {
     SharedPreferences mainPref = await SharedPreferences.getInstance();
     String token = mainPref.getString("token") ?? "";
     var headers = {'Authorization': token, 'Cookie': token};
-    var request = http.Request(
-        'GET',
-        Uri.parse(
-            'https://api.lockedvaultenterprises.com/api/user/month1/profit'));
+    var request =
+        http.Request('GET', Uri.parse('$base_url/api/user/month1/profit'));
 
     request.headers.addAll(headers);
 
@@ -55,10 +54,8 @@ class _RunningMonthlyTotalRozState extends State<RunningMonthlyTotalRoz> {
       'Cookie':
           'connect.sid=s%3AQ7p33kSwg8IVzTr3fbEo-oaKr52cVMu8.zQsNAcM6ufJoqrk8a3cWzDH4CEohj9gEtiB9NVG0lqw'
     };
-    var request = http.Request(
-        'GET',
-        Uri.parse(
-            'https://api.lockedvaultenterprises.com/api/user/month2/profit'));
+    var request =
+        http.Request('GET', Uri.parse('$base_url/api/user/month2/profit'));
 
     request.headers.addAll(headers);
 
@@ -85,10 +82,8 @@ class _RunningMonthlyTotalRozState extends State<RunningMonthlyTotalRoz> {
       'Cookie':
           'connect.sid=s%3AtKcv23ZHCe6Nk8izfMWwJNAWbQYvnrz5.rdTp%2BbXg3ZFiMsku7QzzOwDkb2z0dNcaLfWM4O1H5Kk'
     };
-    var request = http.Request(
-        'GET',
-        Uri.parse(
-            'https://api.lockedvaultenterprises.com/api/user/month3/profit'));
+    var request =
+        http.Request('GET', Uri.parse('$base_url/api/user/month3/profit'));
 
     request.headers.addAll(headers);
 
@@ -115,10 +110,8 @@ class _RunningMonthlyTotalRozState extends State<RunningMonthlyTotalRoz> {
       'Cookie':
           'connect.sid=s%3ANlzlMBHmFOANCC5NVC4JOyQeSWDSG4AR.oUIup2SRTKHvZ1ZfH7ti%2BdWPWnpRRbVkVjwXDBBOgH0'
     };
-    var request = http.Request(
-        'GET',
-        Uri.parse(
-            'https://api.lockedvaultenterprises.com/api/user/month4/profit'));
+    var request =
+        http.Request('GET', Uri.parse('$base_url/api/user/month4/profit'));
 
     request.headers.addAll(headers);
 
