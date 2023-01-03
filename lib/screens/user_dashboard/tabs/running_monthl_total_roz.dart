@@ -25,7 +25,7 @@ class _RunningMonthlyTotalRozState extends State<RunningMonthlyTotalRoz> {
   firstMonth() async {
     SharedPreferences mainPref = await SharedPreferences.getInstance();
     String token = mainPref.getString("token") ?? "";
-    var headers = {'Authorization': token, 'Cookie': token};
+    var headers = {'Authorization': token};
     var request =
         http.Request('GET', Uri.parse('$base_url/api/user/month1/profit'));
 
@@ -49,11 +49,7 @@ class _RunningMonthlyTotalRozState extends State<RunningMonthlyTotalRoz> {
   secondMonth() async {
     SharedPreferences mainPref = await SharedPreferences.getInstance();
     String token = mainPref.getString("token") ?? "";
-    var headers = {
-      'Authorization': token,
-      'Cookie':
-          'connect.sid=s%3AQ7p33kSwg8IVzTr3fbEo-oaKr52cVMu8.zQsNAcM6ufJoqrk8a3cWzDH4CEohj9gEtiB9NVG0lqw'
-    };
+    var headers = {'Authorization': token};
     var request =
         http.Request('GET', Uri.parse('$base_url/api/user/month2/profit'));
 
@@ -77,11 +73,8 @@ class _RunningMonthlyTotalRozState extends State<RunningMonthlyTotalRoz> {
   thirdMonth() async {
     SharedPreferences mainPref = await SharedPreferences.getInstance();
     String token = mainPref.getString("token") ?? "";
-    var headers = {
-      'Authorization': token,
-      'Cookie':
-          'connect.sid=s%3AtKcv23ZHCe6Nk8izfMWwJNAWbQYvnrz5.rdTp%2BbXg3ZFiMsku7QzzOwDkb2z0dNcaLfWM4O1H5Kk'
-    };
+    var headers = {'Authorization': token};
+
     var request =
         http.Request('GET', Uri.parse('$base_url/api/user/month3/profit'));
 
@@ -105,11 +98,7 @@ class _RunningMonthlyTotalRozState extends State<RunningMonthlyTotalRoz> {
   forthMonth() async {
     SharedPreferences mainPref = await SharedPreferences.getInstance();
     String token = mainPref.getString("token") ?? "";
-    var headers = {
-      'Authorization': token,
-      'Cookie':
-          'connect.sid=s%3ANlzlMBHmFOANCC5NVC4JOyQeSWDSG4AR.oUIup2SRTKHvZ1ZfH7ti%2BdWPWnpRRbVkVjwXDBBOgH0'
-    };
+    var headers = {'Authorization': token};
     var request =
         http.Request('GET', Uri.parse('$base_url/api/user/month4/profit'));
 
@@ -137,45 +126,45 @@ class _RunningMonthlyTotalRozState extends State<RunningMonthlyTotalRoz> {
   var monthFour;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        monthOne == null &&
-                monthTwo == null &&
-                monthThree == null &&
-                monthFour == null
-            ? Center(
-                child: Text("Loading....."),
-              )
-            : Container(
+    return monthOne == null &&
+            monthTwo == null &&
+            monthThree == null &&
+            monthFour == null
+        ? Center(
+            child: CircularProgressIndicator(
+              color: baseColor,
+            ),
+          )
+        : Column(
+            children: [
+              Container(
                 child: SfCartesianChart(
                     primaryXAxis: CategoryAxis(title: AxisTitle(text: 'Weeks')),
                     primaryYAxis:
                         NumericAxis(title: AxisTitle(text: 'Percentage')),
-                    // Enable legend
-                    legend: Legend(isVisible: true),
+                    legend: Legend(isVisible: false),
                     palette: [Color(0xFF0C331F)],
-                    // Enable tooltip
                     tooltipBehavior: TooltipBehavior(enable: true),
                     series: <LineSeries<GraphModel, String>>[
                       LineSeries<GraphModel, String>(
                           dataSource: <GraphModel>[
                             GraphModel(
-                                '12/5/2022',
+                                'Month 1',
                                 int.parse(monthOne == null
                                     ? "0"
                                     : monthOne.toString())),
                             GraphModel(
-                                '2/6/2022',
+                                'Month 2',
                                 int.parse(monthTwo == null
                                     ? "0"
                                     : monthTwo.toString())),
                             GraphModel(
-                                '1/7/2022',
+                                'Month 3',
                                 int.parse(monthThree == null
                                     ? "0"
                                     : monthThree.toString())),
                             GraphModel(
-                                '12/8/2022',
+                                'Month 4',
                                 int.parse(monthFour == null
                                     ? "0"
                                     : monthFour.toString())),
@@ -186,33 +175,34 @@ class _RunningMonthlyTotalRozState extends State<RunningMonthlyTotalRoz> {
                           dataLabelSettings: DataLabelSettings(isVisible: true))
                     ]),
               ),
-        SizedBox(
-          height: 20,
-        ),
-        Row(
-          children: [
-            Text(
-              "Month December % Roz =",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              width: 30,
-            ),
-            Container(
-              padding: EdgeInsets.all(15),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(color: Color(0xFF0C331F))),
-              child: Text(
-                "30%",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              SizedBox(
+                height: 20,
               ),
-            )
-          ],
-        ),
-      ],
-    );
+              Row(
+                children: [
+                  Text(
+                    "Month December % Roz =",
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  SizedBox(
+                    width: 30,
+                  ),
+                  Container(
+                    padding: EdgeInsets.all(15),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: Color(0xFF0C331F))),
+                    child: Text(
+                      "30%",
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          );
   }
 
   // static getToken() async {

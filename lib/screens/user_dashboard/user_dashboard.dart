@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:locked_wallet/models/user_single_order_model.dart';
 import 'package:locked_wallet/screens/user_dashboard/graphic_view_screen.dart';
 import 'package:locked_wallet/screens/user_dashboard/view_profile_details_screen.dart';
+import 'package:locked_wallet/services/order_api_service.dart';
 
+import '../../models/user_dashboard_details.dart';
+import '../../services/user_api_service.dart';
 import 'tabs/contact_page.dart';
 import 'tabs/dashbard_widraw_contract.dart';
 import 'tabs/withdraw_frequency_settings.dart';
@@ -20,7 +24,24 @@ class _UserHomeDashboardState extends State<UserHomeDashboard> {
   var week2 = [];
   var week3 = [];
   var week4 = [];
-  String currency = 'USD';
+  List<SingleOrder>? userOrders = [];
+  String? currency;
+
+  @override
+  void initState() {
+    super.initState();
+    getDashboardUserInfo();
+  }
+
+  void getDashboardUserInfo() async {
+    UserDashboardDetailModel? userDashboardDetails =
+        await getUserDashboardDetails();
+
+    if (userDashboardDetails != null) {
+      currency = userDashboardDetails.currency;
+    }
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +78,7 @@ class _UserHomeDashboardState extends State<UserHomeDashboard> {
                 padding: EdgeInsets.all(8),
                 color: Color(0xFF0C331F),
                 child: Text(
-                  currency,
+                  currency ?? '--',
                   style: TextStyle(
                     color: Colors.white,
                   ),

@@ -3,6 +3,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:locked_wallet/models/user_dashboard_details.dart';
+import 'package:locked_wallet/models/user_single_order_model.dart';
 import 'package:locked_wallet/screens/admin_dashboard/admin_all_users_model/admin_all_users_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -10,6 +12,8 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import '../../../common_widget/reusable_tableRow.dart';
 import 'package:http/http.dart' as http;
 import '../../../constants.dart';
+import '../../../services/order_api_service.dart';
+import '../../../services/user_api_service.dart';
 
 class DashBoardWithDrawContract extends StatefulWidget {
   const DashBoardWithDrawContract({Key? key}) : super(key: key);
@@ -21,19 +25,39 @@ class DashBoardWithDrawContract extends StatefulWidget {
 
 class _DashBoardWithDrawContractState extends State<DashBoardWithDrawContract> {
   //String token = getToken();
-  String totalBalance = 1000.toString();
-  String totalEquity = 1000.toString();
-  String totalNetPath = 1000.toString();
-  String totalProfit = 1000.toString();
+  String? totalBalance = '--';
+  String? totalEquity = '--';
+  String? totalNetPath = '--';
+  String? totalProfit = '--';
 
   var message = [];
   var sync = [];
   List<UserModel> list = [];
   UserModel? select;
+  List<SingleOrder>? userOrders = [];
+
+  @override
   void initState() {
     super.initState();
-    GetAllUsers();
-    getData();
+    getDashboardUserInfo();
+    getUserOrders();
+  }
+
+  void getUserOrders() async {
+    userOrders = await getAllUserOrders();
+    print(userOrders);
+    setState(() {});
+  }
+
+  void getDashboardUserInfo() async {
+    UserDashboardDetailModel? userDashboardDetails =
+        await getUserDashboardDetails();
+
+    if (userDashboardDetails != null) {
+      totalBalance = userDashboardDetails.balance;
+      totalEquity = userDashboardDetails.equity;
+    }
+    setState(() {});
   }
 
   GetAllUsers() async {
@@ -303,62 +327,32 @@ class _DashBoardWithDrawContractState extends State<DashBoardWithDrawContract> {
           SizedBox(
             height: 20,
           ),
-
           CustomTable(
-            firstList: ['Trades', 'PiPs', 'Time'],
+            firstList: ['Platform', 'Trades', 'Take Profit', 'Time'],
           ),
           ListView.builder(
-              shrinkWrap: true,
-              itemCount: data.length,
-              itemBuilder: (contex, index) {
-                // var date=DateTime(int.parse(list[index].createDate.toString()));
-                // print(date);
-
-                // var f = DateFormat('E, d MMM yyyy HH:mm:ss');
-                // var date = f.format(DateFormat(TimeOfDay.fromDateTime()).toUtc()) + " GMT";
-                //  print(date);
-                return GestureDetector(
-                  onTap: () {
-                    print(list[index].createDate.toString());
-                  },
-                  child: Column(
-                    children: [
-                      //heading: [],
-                      //isHeader: true),
-                      CustomTable(
-                        // heading: ['Trades', 'P/Ps', 'Time'],
-                        firstList: [
-                          data[index]['username'].toString(),
-                          data[index]['totalProfit'].toString(),
-                          // data[index]['totalProfit'].toString(),
-                          data[index]['createdAt'].toString()
-                        ],
-                        // secondList: ['Jpy/USD', '40', '74'],
-                        // thirdList: ['BTC/USD', '71', '17'],
-                        // fourthList: ['XUA/USD', '67', '11']
-                      ),
-                    ],
-                  ),
-                );
-                //   Column(children: [
-                //   Row(
-                //     children: [
-                //      Column(children: [
-                //        Text(list[index].username ?? "null"),
-                //        SizedBox(height: 2,),
-                //        Divider(color: Colors.grey,)
-                //      ],)
-                //     ],
-                //   ),
-                // ],);
-              }),
-
-          // CustomTable(
-          //     heading: ['Trades', 'P/Ps', 'Time'],
-          //     firstList: [list[1].username ?? "null", '20', '55'],
-          //     secondList: ['Jpy/USD', '40', '74'],
-          //     thirdList: ['BTC/USD', '71', '17'],
-          //     fourthList: ['XUA/USD', '67', '11'])
+            shrinkWrap: true,
+            itemCount: userOrders?.length,
+            itemBuilder: (contex, index) {
+              return GestureDetector(
+                onTap: () {
+                  print(userOrders![index].orderId.toString());
+                },
+                child: Column(
+                  children: [
+                    CustomTable(
+                      firstList: [
+                        userOrders![index].platform.toString(),
+                        userOrders![index].symbol.toString(),
+                        userOrders![index].takeProfit.toString(),
+                        getValidZOrderTime(userOrders![index].time.toString())
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            },
+          ),
         ],
       ),
     );
@@ -374,9 +368,10 @@ class _DashBoardWithDrawContractState extends State<DashBoardWithDrawContract> {
     return Table(
       border: TableBorder.all(),
       columnWidths: {
-        0: FractionColumnWidth(0.5),
-        1: FractionColumnWidth(0.15),
-        2: FractionColumnWidth(0.35),
+        0: FractionColumnWidth(0.25),
+        1: FractionColumnWidth(0.25),
+        2: FractionColumnWidth(0.25),
+        3: FractionColumnWidth(0.25),
       },
       children: [
         //ReusableTableRow(heading),

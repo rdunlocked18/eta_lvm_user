@@ -14,20 +14,20 @@ class RozByWeek extends StatelessWidget {
               primaryXAxis: CategoryAxis(title: AxisTitle(text: 'Dates')),
               primaryYAxis: NumericAxis(title: AxisTitle(text: 'Percentage')),
               // Enable legend
-              legend: Legend(isVisible: true),
+              legend: Legend(isVisible: false),
               // Enable tooltip
               palette: [Color(0xFF0C331F)],
               tooltipBehavior: TooltipBehavior(enable: true),
               series: <LineSeries<GraphModel, String>>[
                 LineSeries<GraphModel, String>(
                     dataSource: <GraphModel>[
-                      GraphModel('12/5/2022', 2),
-                      GraphModel('2/6/2022', 6),
-                      GraphModel('2/6/2022', 13),
-                      GraphModel('1/7/2022', 15),
-                      GraphModel('1/7/2022', 17),
-                      GraphModel('12/8/2022', 25),
-                      GraphModel('12/11/2022', 30)
+                      GraphModel('1/12/2022', 2),
+                      GraphModel('2/12/2022', 6),
+                      GraphModel('3/12/2022', 13),
+                      GraphModel('4/12/2022', 15),
+                      GraphModel('5/12/2022', 17),
+                      GraphModel('6/12/2022', 25),
+                      GraphModel('7/12/2022', 30)
                     ],
                     xValueMapper: (GraphModel sales, _) => sales.year,
                     yValueMapper: (GraphModel sales, _) => sales.sales,

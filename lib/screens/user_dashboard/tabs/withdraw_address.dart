@@ -19,6 +19,10 @@ class _WithdrawAddressState extends State<WithdrawAddress> {
   ];
   String? _bank;
 
+  TextEditingController walletAddressController = TextEditingController();
+  TextEditingController confirmWalletAddressController =
+      TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -45,7 +49,10 @@ class _WithdrawAddressState extends State<WithdrawAddress> {
               ),
               items: _bankItems
                   .map((e) => DropdownMenuItem<String>(
-                        child: Text(e),
+                        child: Text(
+                          e,
+                          style: TextStyle(color: Colors.black),
+                        ),
                         value: e,
                       ))
                   .toList(),
@@ -81,7 +88,10 @@ class _WithdrawAddressState extends State<WithdrawAddress> {
               ),
               items: _walletItems
                   .map((e) => DropdownMenuItem<String>(
-                        child: Text(e),
+                        child: Text(
+                          e,
+                          style: TextStyle(color: Colors.black),
+                        ),
                         value: e,
                       ))
                   .toList(),
@@ -103,35 +113,33 @@ class _WithdrawAddressState extends State<WithdrawAddress> {
         SizedBox(
           height: 20,
         ),
-        Container(
-          padding: EdgeInsets.all(15),
-          width: double.infinity,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              border: Border.all(
-                color: Color(0xFF0C331F),
-              ),
-              borderRadius: BorderRadius.circular(10)),
-          child: Text(
-            "BTC Address",
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        TextField(
+          controller: walletAddressController,
+          maxLines: 1,
+          decoration: InputDecoration(
+            hintText: 'Wallet Address',
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Color(0xFF0C331F), width: 1)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Color(0xFF0C331F), width: 1)),
           ),
         ),
         SizedBox(
           height: 20,
         ),
-        Container(
-          padding: EdgeInsets.all(15),
-          width: double.infinity,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              border: Border.all(
-                color: Color(0xFF0C331F),
-              ),
-              borderRadius: BorderRadius.circular(10)),
-          child: Text(
-            "BTC Address CONFIRM",
-            style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+        TextField(
+          controller: confirmWalletAddressController,
+          maxLines: 1,
+          decoration: InputDecoration(
+            hintText: 'Confirm Wallet Address',
+            enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Color(0xFF0C331F), width: 1)),
+            focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(10),
+                borderSide: BorderSide(color: Color(0xFF0C331F), width: 1)),
           ),
         ),
         SizedBox(

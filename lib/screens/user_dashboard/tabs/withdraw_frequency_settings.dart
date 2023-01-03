@@ -8,6 +8,9 @@ class WithdrawFrequencyTab extends StatefulWidget {
 }
 
 class _WithdrawFrequencyTabState extends State<WithdrawFrequencyTab> {
+  int value1 = 0;
+  int value2 = 0;
+
   List<String> _compoundItems = [
     'Monthly',
     'Bi-Monthly',
@@ -20,6 +23,22 @@ class _WithdrawFrequencyTabState extends State<WithdrawFrequencyTab> {
   ];
   String? _payout;
   String? _compound;
+
+  void incrementValue1() {
+    value1++;
+  }
+
+  void decrementValue1() {
+    value1--;
+  }
+
+  void incrementValue2() {
+    value2++;
+  }
+
+  void decrementValue2() {
+    value2--;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +109,7 @@ class _WithdrawFrequencyTabState extends State<WithdrawFrequencyTab> {
                       width: 50,
                     ),
                     Text(
-                      "75%",
+                      "$value1 %",
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -100,7 +119,11 @@ class _WithdrawFrequencyTabState extends State<WithdrawFrequencyTab> {
                     Column(
                       children: [
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              incrementValue1();
+                            });
+                          },
                           child: Container(
                             height: 30,
                             width: 50,
@@ -116,7 +139,11 @@ class _WithdrawFrequencyTabState extends State<WithdrawFrequencyTab> {
                           ),
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              decrementValue1();
+                            });
+                          },
                           child: Container(
                             height: 30,
                             width: 50,
@@ -154,7 +181,7 @@ class _WithdrawFrequencyTabState extends State<WithdrawFrequencyTab> {
                       width: 50,
                     ),
                     Text(
-                      "75%",
+                      "$value2 %",
                       style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.w600,
@@ -164,7 +191,11 @@ class _WithdrawFrequencyTabState extends State<WithdrawFrequencyTab> {
                     Column(
                       children: [
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              incrementValue2();
+                            });
+                          },
                           child: Container(
                             height: 30,
                             width: 50,
@@ -180,7 +211,11 @@ class _WithdrawFrequencyTabState extends State<WithdrawFrequencyTab> {
                           ),
                         ),
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            setState(() {
+                              decrementValue2();
+                            });
+                          },
                           child: Container(
                             height: 30,
                             width: 50,

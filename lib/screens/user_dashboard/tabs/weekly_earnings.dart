@@ -27,8 +27,6 @@ class _WeeklyEarningState extends State<WeeklyEarning> {
     String token = mainPref.getString("token") ?? "";
     var headers = {
       'Authorization': token,
-      'Cookie':
-          'connect.sid=s%3Akl5SvZTkz-3fQwmXsKewBlW05RKa_LjV.DHFs1ZvHP%2FbrrPgXXmCBrZotBftv9%2FU%2FFvo%2FRYTvVTo'
     };
     var request =
         http.Request('GET', Uri.parse('$base_url/api/user/week1/profit'));
@@ -82,8 +80,6 @@ class _WeeklyEarningState extends State<WeeklyEarning> {
     String token = mainPref.getString("token") ?? "";
     var headers = {
       'Authorization': token,
-      'Cookie':
-          'connect.sid=s%3AlxqO18RM7HECRsgUIUqgu23iekFEEqiO.6E5DfAlK5FKeurbUhr9gaaTYYXGPqxW3Ia37LvBhiyQ'
     };
     var request =
         http.Request('GET', Uri.parse('$base_url/api/user/week3/profit'));
@@ -109,8 +105,6 @@ class _WeeklyEarningState extends State<WeeklyEarning> {
     String token = mainPref.getString("token") ?? "";
     var headers = {
       'Authorization': token,
-      'Cookie':
-          'connect.sid=s%3AJCBdeDSx-j5UTyYDpomwth0PbJU4gAEl.F2TxguT1j81Dy42TKBqGNnidjpSXmHFK6OQ76e1M%2FGU'
     };
     var request =
         http.Request('GET', Uri.parse('$base_url/api/user/week4/profit'));
@@ -140,97 +134,99 @@ class _WeeklyEarningState extends State<WeeklyEarning> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: 1,
-        itemBuilder: (context, index) {
-          return weekThree == null &&
-                  weekTwo == null &&
-                  weekFour == null &&
-                  weekOne == null
-              ? Center(
-                  child: Text("Loading....."),
-                )
-              : Column(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height * .5,
-                      child: SfCartesianChart(
-                          palette: [Color(0xFF0C331F)],
-                          primaryXAxis:
-                              CategoryAxis(title: AxisTitle(text: 'Weeks')),
-                          primaryYAxis:
-                              NumericAxis(title: AxisTitle(text: 'Earnings')),
-                          series: <ChartSeries>[
-                            ColumnSeries<EarningModel, String>(
-                                dataSource: <EarningModel>[
-                                  EarningModel(
-                                      'Week 1',
-                                      double.parse(weekOne == null
-                                          ? "0"
-                                          : weekOne.toString())),
-                                  EarningModel(
-                                      'Week 2',
-                                      double.parse(weekTwo == null
-                                          ? "0"
-                                          : weekTwo.toString())),
-                                  EarningModel(
-                                      'Week 3',
-                                      double.parse(weekThree == null
-                                          ? "0"
-                                          : weekThree.toString())),
-                                  EarningModel(
-                                      'Week 4',
-                                      double.parse(weekFour == null
-                                          ? "0"
-                                          : weekFour.toString())),
-                                ],
-                                xValueMapper: (EarningModel sales, _) =>
-                                    sales.week,
-                                yValueMapper: (EarningModel sales, _) =>
-                                    sales.earning,
-                                dataLabelSettings:
-                                    DataLabelSettings(isVisible: true))
-                          ]),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          "This Week Earning  =",
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.bold),
+    return weekThree == null &&
+            weekTwo == null &&
+            weekFour == null &&
+            weekOne == null
+        ? Center(
+            child: CircularProgressIndicator(
+              color: baseColor,
+            ),
+          )
+        : ListView.builder(
+            itemCount: 1,
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.height * .5,
+                    child: SfCartesianChart(
+                        palette: [Color(0xFF0C331F)],
+                        primaryXAxis:
+                            CategoryAxis(title: AxisTitle(text: 'Weeks')),
+                        primaryYAxis:
+                            NumericAxis(title: AxisTitle(text: 'Earnings')),
+                        series: <ChartSeries>[
+                          ColumnSeries<EarningModel, String>(
+                              dataSource: <EarningModel>[
+                                EarningModel(
+                                    'Week 1',
+                                    double.parse(weekOne == null
+                                        ? "0"
+                                        : weekOne.toString())),
+                                EarningModel(
+                                    'Week 2',
+                                    double.parse(weekTwo == null
+                                        ? "0"
+                                        : weekTwo.toString())),
+                                EarningModel(
+                                    'Week 3',
+                                    double.parse(weekThree == null
+                                        ? "0"
+                                        : weekThree.toString())),
+                                EarningModel(
+                                    'Week 4',
+                                    double.parse(weekFour == null
+                                        ? "0"
+                                        : weekFour.toString())),
+                              ],
+                              xValueMapper: (EarningModel sales, _) =>
+                                  sales.week,
+                              yValueMapper: (EarningModel sales, _) =>
+                                  sales.earning,
+                              dataLabelSettings:
+                                  DataLabelSettings(isVisible: true))
+                        ]),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        "This Week Earning  =",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        width: 30,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          firstWeek();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.all(15),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Color(0xFF0C331F))),
+                          child: weekOne == null
+                              ? CircularProgressIndicator()
+                              : Text(
+                                  weekOne.toString(),
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold),
+                                ),
                         ),
-                        SizedBox(
-                          width: 30,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            firstWeek();
-                          },
-                          child: Container(
-                            padding: EdgeInsets.all(15),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                border: Border.all(color: Color(0xFF0C331F))),
-                            child: weekOne == null
-                                ? CircularProgressIndicator()
-                                : Text(
-                                    weekOne.toString(),
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                );
-        });
+                      )
+                    ],
+                  ),
+                ],
+              );
+            });
   }
 
   // static getToken() async {
