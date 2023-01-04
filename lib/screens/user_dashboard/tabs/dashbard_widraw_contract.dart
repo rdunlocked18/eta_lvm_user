@@ -5,9 +5,6 @@ import 'package:locked_wallet/models/user_dashboard_details.dart';
 import 'package:locked_wallet/models/user_single_order_model.dart';
 import 'package:locked_wallet/screens/admin_dashboard/admin_all_users_model/admin_all_users_model.dart';
 import 'package:locked_wallet/screens/user_dashboard/graphic_view_screen.dart';
-import 'package:locked_wallet/screens/user_dashboard/tabs/daily_profit_loss.dart';
-import 'package:locked_wallet/screens/user_dashboard/tabs/weekly_earnings.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../common_widget/reusable_tableRow.dart';
 import '../../../constants.dart';

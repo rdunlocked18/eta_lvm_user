@@ -17,10 +17,6 @@ class _WithdrawAddressState extends State<WithdrawAddress> {
     'Crypto Wallet',
   ];
   String? _wallet;
-  List<String> _walletItems = [
-    'Wallet 1',
-    'Wallet 2',
-  ];
   String? _bank;
   String? _bbnk;
   bool isCryptoSelected = false;
