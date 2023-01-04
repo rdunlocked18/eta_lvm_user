@@ -121,32 +121,6 @@ class _DailyProfitLossState extends State<DailyProfitLoss> {
                           dataLabelSettings: DataLabelSettings(isVisible: true))
                     ]),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: [
-                  Text(
-                    "Today Profit  =",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(15),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Color(0xFF0C331F))),
-                    child: Text(
-                      10.toString(),
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              ),
             ],
           );
   }

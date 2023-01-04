@@ -22,57 +22,50 @@ class _GraphicViewScreenState extends State<GraphicViewScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text("Graphs"),
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
-        elevation: 0,
-      ),
+      // appBar: AppBar(
+      //   centerTitle: true,
+      //   title: Text("Graphs"),
+      //   foregroundColor: Colors.black,
+      //   backgroundColor: Colors.white,
+      //   elevation: 0,
+      // ),
       body: DefaultTabController(
-        length: 4,
+        length: 3,
         initialIndex: 0,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              TabBar(
-                isScrollable: true,
-                unselectedLabelColor: Colors.grey,
-                labelColor: Colors.white,
-                indicator: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Color(0xFF0C331F)),
-                tabs: [
-                  Tab(
-                    text: 'Daily',
-                  ),
-                  Tab(
-                    text: 'Weekly',
-                  ),
-                  Tab(
-                    text: 'Monthly',
-                  ),
-                  Tab(
-                    text: "% Roz Week",
-                  ),
+        child: Column(
+          children: [
+            Expanded(
+              child: TabBarView(
+                children: [
+                  DailyProfitLoss(),
+                  WeeklyEarning(),
+                  RunningMonthlyTotalRoz(),
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    DailyProfitLoss(),
-                    WeeklyEarning(),
-                    RunningMonthlyTotalRoz(),
-                    RozByWeek(),
-                  ],
+            ),
+            TabBar(
+              isScrollable: true,
+              unselectedLabelColor: Colors.grey,
+              labelColor: Colors.white,
+              indicator: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Color(0xFF0C331F)),
+              tabs: [
+                Tab(
+                  text: 'Daily',
                 ),
-              ),
-            ],
-          ),
+                Tab(
+                  text: 'Weekly',
+                ),
+                Tab(
+                  text: 'Monthly',
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+          ],
         ),
       ),
     );

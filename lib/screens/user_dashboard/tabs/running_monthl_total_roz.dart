@@ -175,32 +175,29 @@ class _RunningMonthlyTotalRozState extends State<RunningMonthlyTotalRoz> {
                           dataLabelSettings: DataLabelSettings(isVisible: true))
                     ]),
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: [
-                  Text(
-                    "Month December % Roz =",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    width: 30,
-                  ),
-                  Container(
-                    padding: EdgeInsets.all(15),
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: Color(0xFF0C331F))),
-                    child: Text(
-                      "30%",
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Text(
+              //       "Month December % Roz =",
+              //       style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              //     ),
+              //     SizedBox(
+              //       width: 30,
+              //     ),
+              //     Container(
+              //       padding: EdgeInsets.all(15),
+              //       alignment: Alignment.center,
+              //       decoration: BoxDecoration(
+              //           borderRadius: BorderRadius.circular(10),
+              //           border: Border.all(color: Color(0xFF0C331F))),
+              //       child: Text(
+              //         "30%",
+              //         style:
+              //             TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              //       ),
+              //     )
+              //   ],
+              // ),
             ],
           );
   }

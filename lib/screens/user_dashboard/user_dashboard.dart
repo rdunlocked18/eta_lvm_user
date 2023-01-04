@@ -25,6 +25,7 @@ class _UserHomeDashboardState extends State<UserHomeDashboard> {
   var week4 = [];
   List<SingleOrder>? userOrders = [];
   String? currency;
+  String? platform;
 
   @override
   void initState() {
@@ -38,6 +39,7 @@ class _UserHomeDashboardState extends State<UserHomeDashboard> {
 
     if (userDashboardDetails != null) {
       currency = userDashboardDetails.currency;
+      platform = userDashboardDetails.platform;
     }
     setState(() {});
   }
@@ -77,7 +79,7 @@ class _UserHomeDashboardState extends State<UserHomeDashboard> {
                 padding: EdgeInsets.all(8),
                 color: Color(0xFF0C331F),
                 child: Text(
-                  currency ?? '--',
+                  platform ?? 'MT5',
                   style: TextStyle(
                     color: Colors.white,
                   ),
@@ -88,19 +90,18 @@ class _UserHomeDashboardState extends State<UserHomeDashboard> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
-              child: IconButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => GraphicViewScreen(),
-                  ));
-                },
-                tooltip: 'Show Graphs',
-                icon: Icon(
-                  Icons.auto_graph_rounded,
+              child: Container(
+                padding: EdgeInsets.all(8),
+                color: Color(0xFF0C331F),
+                child: Text(
+                  currency ?? '--',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),
-          )
+          ),
         ],
         title: Text("Locked Vault Enterprises"),
         foregroundColor: Colors.black,

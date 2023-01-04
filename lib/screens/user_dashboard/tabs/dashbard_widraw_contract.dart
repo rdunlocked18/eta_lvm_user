@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:locked_wallet/models/user_dashboard_details.dart';
 import 'package:locked_wallet/models/user_single_order_model.dart';
 import 'package:locked_wallet/screens/admin_dashboard/admin_all_users_model/admin_all_users_model.dart';
+import 'package:locked_wallet/screens/user_dashboard/graphic_view_screen.dart';
+import 'package:locked_wallet/screens/user_dashboard/tabs/daily_profit_loss.dart';
+import 'package:locked_wallet/screens/user_dashboard/tabs/weekly_earnings.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../common_widget/reusable_tableRow.dart';
@@ -71,42 +74,9 @@ class _DashBoardWithDrawContractState extends State<DashBoardWithDrawContract> {
         children: [
           //graph
           Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height * .5,
-            child: SfCartesianChart(
-                palette: [Color(0xFF0C331F)],
-                primaryXAxis: CategoryAxis(title: AxisTitle(text: 'Days')),
-                primaryYAxis:
-                    NumericAxis(title: AxisTitle(text: 'Profit / Loss')),
-                series: <ChartSeries>[
-                  ColumnSeries<ProfitLoss, String>(
-                      dataSource: <ProfitLoss>[
-                        ProfitLoss('1', 89),
-                        ProfitLoss('2', 280),
-                        ProfitLoss('3', 54),
-                        ProfitLoss('4', 320),
-                        ProfitLoss('5', 400),
-                        ProfitLoss('6', -190),
-                        ProfitLoss('7', 200),
-                        ProfitLoss('8', -111),
-                        ProfitLoss('9', 320),
-                        ProfitLoss('10', 240),
-                        ProfitLoss('11', 280),
-                        ProfitLoss('12', 900),
-                        ProfitLoss('13', -220),
-                        ProfitLoss('14', 400),
-                        ProfitLoss('15', -190),
-                        ProfitLoss('16', 600),
-                        ProfitLoss('17', -111),
-                        ProfitLoss('18', 320),
-                        ProfitLoss('19', -240),
-                        ProfitLoss('20', 440),
-                      ],
-                      xValueMapper: (ProfitLoss sales, _) => sales.day,
-                      yValueMapper: (ProfitLoss sales, _) => sales.profit,
-                      dataLabelSettings: DataLabelSettings(isVisible: true))
-                ]),
-          ),
+              width: double.infinity,
+              height: MediaQuery.of(context).size.height * .6,
+              child: GraphicViewScreen()),
 
           //Buttons
 

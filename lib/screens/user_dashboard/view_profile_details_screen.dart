@@ -58,28 +58,28 @@ class _ViewProfileDetailsScreenState extends State<ViewProfileDetailsScreen> {
                     height: 20,
                   ),
                   CustomTextField(
-                      value: '${user?.user?.username}', labelText: "Name"),
+                      value: user?.user?.username ?? '--', labelText: "Name"),
                   SizedBox(
                     height: 20,
                   ),
                   CustomTextField(
-                      value: "${user?.user?.email}", labelText: "Email"),
+                      value: user?.user?.email ?? '--', labelText: "Email"),
                   SizedBox(
                     height: 20,
                   ),
                   CustomTextField(
-                      value: "${user?.user?.phone}", labelText: "Phone"),
+                      value: user?.user?.phone ?? '--', labelText: "Phone"),
                   SizedBox(
                     height: 20,
                   ),
                   CustomTextField(
-                      value: "${user?.user?.accountId}",
+                      value: user?.user?.accountId ?? '--',
                       labelText: "Account ID"),
                   SizedBox(
                     height: 20,
                   ),
                   CustomTextField(
-                      value: "${userDashboardDetails?.type}",
+                      value: userDashboardDetails?.type ?? '--',
                       labelText: "Account Type"),
                   // SizedBox(
                   //   height: 20,
@@ -101,9 +101,9 @@ class _ViewProfileDetailsScreenState extends State<ViewProfileDetailsScreen> {
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
-    this.value,
+    this.value = '',
     this.controller,
-    this.labelText,
+    this.labelText = '',
   });
 
   final String? value;
